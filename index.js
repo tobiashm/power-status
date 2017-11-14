@@ -15,8 +15,9 @@ const checkIsCharging = () => osxBattery().then(resolveState).then(nextState => 
   if (nextState === currentState) return;
   currentState = nextState;
   const device = new Luxafor();
-  device.setColor(colors[currentState] || '#000');
+  device.setColor(colors[currentState] || '#000', 0x41);
+  device.flash('#0f0', 0x42);
 });
 
-checkIsCharging();
+new Luxafor().off();
 setInterval(checkIsCharging, 1000);
