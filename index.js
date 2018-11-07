@@ -1,9 +1,14 @@
 const osxBattery = require('osx-battery');
 const Luxafor = require('luxafor-api');
 
-let currentState = null;
+const device = new Luxafor();
 
-const resolveState = res => res.externalConnected ? (res.isCharging ? 'charging' : 'full') : 'discharging';
+let currentState = null;
+let connected = null;
+
+const resolveState = res => res.fullyCharged ? 'full' : (
+  res.isCharging ? 'charging' : 'discharging'
+);
 
 const colors = {
   charging: '#00f',
@@ -11,13 +16,32 @@ const colors = {
   full: '#fff'
 };
 
-const checkIsCharging = () => osxBattery().then(resolveState).then(nextState => {
-  if (nextState === currentState) return;
-  currentState = nextState;
-  const device = new Luxafor();
-  device.setColor(colors[currentState] || '#000', 0x41);
-  device.flash('#0f0', 0x42);
+const targets = {
+  all: 0xff,
+  top: 0x41,
+  bottom: 0x42,
+};
+
+const checkConnection = ({ externalConnected }) => new Promise(resolve => {
+  if (connected === externalConnected) return resolve();
+  connected = externalConnected;
+  const color = connected ? '#0f0' : '#f00';
+  device.setColor(color, targets.bottom);
+  resolve();
 });
 
-new Luxafor().off();
+const checkState = (res) => new Promise(resolve => {
+  const nextState = resolveState(res);
+  if (nextState === currentState) return resolve();
+  currentState = nextState;
+  device.setColor(colors[currentState] || '#000', targets.top);
+  resolve();
+});
+
+const checkIsCharging = () => osxBattery().then(res => {
+  checkConnection(res);
+  checkState(res);
+});
+
+device.off();
 setInterval(checkIsCharging, 1000);
