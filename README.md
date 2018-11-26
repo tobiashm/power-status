@@ -1,6 +1,12 @@
 # MacBook power status with Luxafor
 
 Change color of Luxafor device based on power status;
-- Red: No external power connected
+
+Top row:
+- Red: Discharging battery
 - Blue: Charging battery
-- White: External power connected, and battery fully charged
+- White: Battery fully charged
+
+Bottom row:
+- Red: No external power connected
+- Green: External power connected
