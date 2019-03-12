@@ -8,12 +8,12 @@ const resolveState = res => res.fullyCharged ? 'full' : (
 const stateColors = {
   charging: '#00f',
   discharging: '#f00',
-  full: '#fff'
+  full: '#333'
 };
 
 const stateColor = res => stateColors[resolveState(res)] || '#000';
 
-const connectedColor = res => res.externalConnected ? '#0f0' : '#f00';
+const connectedColor = res => res.externalConnected ? '#030' : '#f00';
 
 const checkIsCharging = () => osxBattery().then(res => {
   const device = new Luxafor();
