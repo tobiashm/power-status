@@ -8,7 +8,7 @@
     "yarn": "^1.10"
   },
   "dependencies": {
-    "forever": "^0.15.3",
+    "forever": "^1.0.0",
     "luxafor-api": "^2.0.0",
     "osx-battery": "^4.0.0"
   },
