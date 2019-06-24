@@ -1,5 +1,5 @@
 const osxBattery = require('osx-battery');
-const Luxafor = require('luxafor-api');
+const Luxafor = require('./luxafor');
 
 const resolveState = res => res.fullyCharged ? 'full' : (
   res.isCharging ? 'charging' : 'discharging'
@@ -20,6 +20,7 @@ const checkIsCharging = () => osxBattery().then(res => {
   const targets = device.getTargets();
   device.setColor(connectedColor(res), targets.bottom);
   device.setColor(stateColor(res), targets.top);
+  device.close();
 });
 
 new Luxafor().off();
