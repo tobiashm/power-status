@@ -13,7 +13,7 @@
     "osx-battery": "^4.0.0"
   },
   "devDependencies": {
-    "eslint": "^5.8.0"
+    "eslint": "^6.6.0"
   },
   "scripts": {
     "start": "forever start ${PWD}/index.js",
