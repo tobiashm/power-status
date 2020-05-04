@@ -7,9 +7,9 @@
     "node": ">10"
   },
   "dependencies": {
-    "forever": "^1.0.0",
+    "forever": "^2.0.0",
     "hex-rgb": "^4.1.0",
-    "node-hid": "^0.7.9",
+    "node-hid": "^1.2.0",
     "osx-battery": "^4.0.0"
   },
   "devDependencies": {
