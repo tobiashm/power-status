@@ -39,7 +39,9 @@ class Luxafor {
     try {
       this.device = new HID.HID(vendorId, productId);
       this.device.pause(); // pause until next command
+      this.device.on('error', e => console.error(e));
     } catch (e) {
+      console.error(e);
       this.device = e;
     }
   }
@@ -76,6 +78,7 @@ function write(device, data) {
     device.write(data);
     device.pause();
   } catch (e) {
+    console.error(e);
     return e;
   }
 }

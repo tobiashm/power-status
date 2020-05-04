@@ -18,6 +18,7 @@
   "scripts": {
     "start": "forever start ${PWD}/index.js",
     "stop": "forever stop ${PWD}/index.js",
+    "restart": "forever restart ${PWD}/index.js",
     "lint": "eslint ."
   }
 }

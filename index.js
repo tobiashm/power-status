@@ -6,9 +6,9 @@ const resolveState = res => res.fullyCharged ? 'full' : (
 );
 
 const stateColors = {
-  charging: '#00f',
-  discharging: '#f00',
-  full: '#333'
+  charging: '#00f', // blue
+  discharging: '#f00', // red
+  full: '#333' // white
 };
 
 const stateColor = res => stateColors[resolveState(res)] || '#000';
