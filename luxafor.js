@@ -1,6 +1,6 @@
-const HID = require('node-hid');
-const hex2rgb = require('hex-rgb');
-const os = require('os');
+import { HID } from 'node-hid';
+import hex2rgb from 'hex-rgb';
+import { platform } from 'os';
 
 const targets = {
   all: 0xff,
@@ -37,7 +37,7 @@ const productId = 0xf372;
 class Luxafor {
   constructor() {
     try {
-      this.device = new HID.HID(vendorId, productId);
+      this.device = new HID(vendorId, productId);
       this.device.pause(); // pause until next command
       this.device.on('error', e => console.error(e));
     } catch (e) {
@@ -56,7 +56,7 @@ class Luxafor {
   }
 
   close() {
-    if (this.device instanceof HID.HID) {
+    if (this.device instanceof HID) {
       this.device.close();
     }
   }
@@ -72,7 +72,7 @@ function write(device, data) {
   }
   try {
     device.resume();
-    if (os.platform () === 'win32') {
+    if (platform() === 'win32') {
       data.unshift(0);
     }
     device.write(data);
@@ -92,4 +92,4 @@ function issueCommand(device, command, target, color) {
   return write(device, [command, target, red, green, blue]);
 }
 
-module.exports = Luxafor;
+export default Luxafor;

@@ -1,5 +1,5 @@
-const osxBattery = require('osx-battery');
-const Luxafor = require('./luxafor');
+import { getBatteryStatus } from './battery.js';
+import Luxafor from './luxafor.js';
 
 const resolveState = res => res.fullyCharged ? 'full' : (
   res.isCharging ? 'charging' : 'discharging'
@@ -15,7 +15,7 @@ const stateColor = res => stateColors[resolveState(res)] || '#000';
 
 const connectedColor = res => res.externalConnected ? '#030' : '#f00';
 
-const checkIsCharging = () => osxBattery().then(res => {
+const checkIsCharging = () => getBatteryStatus().then(res => {
   const device = new Luxafor();
   const targets = device.getTargets();
   device.setColor(connectedColor(res), targets.bottom);
